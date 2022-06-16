@@ -1,2 +1,0 @@
-# ReactApp
-Udemy React Course
