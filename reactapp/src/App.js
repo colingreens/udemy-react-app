@@ -17,7 +17,7 @@ const App = () => {
       <MainNavigation />
       <main>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/home" exact>
             <Users />
           </Route>
           <Route path="/:userId/places" exact>
@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/places/new" exact>
             <NewPlace />
           </Route>
-          <Redirect to="/" />
+          <Redirect to="/home" />
         </Switch>
       </main>
     </Router>
