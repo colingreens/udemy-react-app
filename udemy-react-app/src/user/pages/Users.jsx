@@ -5,14 +5,15 @@ export default function Users() {
     {
       id: "u1",
       name: "Colin Benson",
-      image: "https://images.pexels.com/photos/728411/pexels-photo-728411.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1669424327315-21e9a142c90d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80",
       places: 3,
     },
     {
       id: "u2",
       name: "Kirsten",
       image:
-        "https://images.pexels.com/photos/14910487/pexels-photo-14910487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.unsplash.com/photo-1669461734596-b126134d0dfa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       places: 3,
     },
   ];
