@@ -1,3 +1,6 @@
+import { useState, useContext } from "react";
+
+import { AuthContext } from "../../shared/context/auth-context";
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
@@ -5,12 +8,15 @@ import useForm from "../../shared/hooks/form-hook";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
 
 import "./Auth.css";
 
 export default function Auth() {
-  const [formState, inputHandler] = useForm(
+  const auth = useContext(AuthContext);
+  const [isLoginMode, setIsLoginMode] = useState(true);
+  const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
         value: "",
@@ -27,6 +33,31 @@ export default function Auth() {
   function authSubmitHandler(event) {
     event.preventDefault();
     console.log(formState.inputs);
+    auth.login();
+  }
+
+  function switchModeHandler() {
+    if (!isLoginMode) {
+      setFormData(
+        {
+          ...formState.inputs,
+          name: undefined,
+        },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      );
+    } else {
+      setFormData(
+        {
+          ...formState.inputs,
+          name: {
+            value: "",
+            isValid: false,
+          },
+        },
+        false
+      );
+    }
+    setIsLoginMode((prevMode) => !prevMode);
   }
 
   return (
@@ -34,6 +65,17 @@ export default function Auth() {
       <h2>Login Required</h2>
       <hr />
       <form className="authentication" onSubmit={authSubmitHandler}>
+        {!isLoginMode && (
+          <Input
+            element="input"
+            id="name"
+            type="text"
+            label="Your Name"
+            validators={[VALIDATOR_REQUIRE]}
+            errorText="Please enter a name."
+            onInput={inputHandler}
+          />
+        )}
         <Input
           element="input"
           id="email"
@@ -53,7 +95,10 @@ export default function Auth() {
           onInput={inputHandler}
         />
         <Button type="submit" disabled={!formState.isValid}>
-          LOGIN
+          {isLoginMode ? "Login" : "Signup"}
+        </Button>
+        <Button inverse onClick={switchModeHandler}>
+          Switch To {isLoginMode ? "Signup" : "Login"}
         </Button>
       </form>
     </Card>
